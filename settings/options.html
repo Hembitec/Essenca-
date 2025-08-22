@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Essenca Settings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="settings.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="../Essenca_logo.png" alt="Essenca Logo" width="32" height="32">
+            </div>
+            <h1>Settings</h1>
+        </div>
+
+        <div class="tabs">
+            <div class="tab-header">
+                <div class="tab-link active" data-tab="general">General Settings</div>
+                <div class="tab-link" data-tab="personalization">Personalization</div>
+                <div class="tab-link" data-tab="advanced">Additional Instructions</div>
+            </div>
+            <div class="tab-content active" id="general">
+                <div class="form-group">
+                    <label for="provider">AI Provider</label>
+                    <select id="provider">
+                        <option value="essenca_api">Essenca API</option>
+                        <option value="openai">OpenAI</option>
+                        <option value="gemini">Gemini</option>
+                    </select>
+                    <div class="hint">Choose your AI provider. Models and API key fields will update accordingly.</div>
+                </div>
+                <div class="form-group" id="openai-api-group">
+                    <label for="openaiApiKey">OpenAI API Key</label>
+                    <div class="api-key-wrapper">
+                        <input type="password" id="openaiApiKey" placeholder="sk-...">
+                        <i class="fas fa-eye toggle-api-key"></i>
+                    </div>
+                    <div class="hint">Your OpenAI API key will be stored securely in your browser. You can get an API
+                        key from
+                        <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI's website</a>.
+                    </div>
+                </div>
+                <div class="form-group" id="gemini-api-group" style="display:none;">
+                    <label for="geminiApiKey">Gemini API Key</label>
+                    <div class="api-key-wrapper">
+                        <input type="password" id="geminiApiKey" placeholder="AI...">
+                        <i class="fas fa-eye toggle-api-key"></i>
+                    </div>
+                    <div class="hint">Your Gemini API key will be stored securely in your browser. You can get an API
+                        key from
+                        <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="model">AI Model</label>
+                    <input type="text" id="model" placeholder="gpt-3.5-turbo">
+                    <div class="model-options" id="modelOptionsOpenAI">
+                        <div class="model-option" data-model="gpt-3.5-turbo">
+                            <div class="model-name">GPT-3.5 Turbo</div>
+                            <div class="model-description">Fast & affordable</div>
+                        </div>
+                        <div class="model-option" data-model="gpt-4">
+                            <div class="model-name">GPT-4</div>
+                            <div class="model-description">Most capable</div>
+                        </div>
+                        <div class="model-option" data-model="gpt-4-turbo">
+                            <div class="model-name">GPT-4 Turbo</div>
+                            <div class="model-description">Latest model</div>
+                        </div>
+                    </div>
+                    <div class="model-options" id="modelOptionsGemini" style="display:none;">
+                        <div class="model-option" data-model="gemini-2.0-flash">
+                            <div class="model-name">Gemini 2.0 Flash</div>
+                            <div class="model-description">Fast, efficient</div>
+                        </div>
+                        <div class="model-option" data-model="gemini-2.5-flash">
+                            <div class="model-name">Gemini 2.5 Flash</div>
+                            <div class="model-description">Latest, more capable</div>
+                        </div>
+                        <div class="model-option" data-model="gemini-2.0-flash-lite">
+                            <div class="model-name">Gemini 2.0 Flash Lite</div>
+                            <div class="model-description">Lightweight, cost-effective</div>
+                        </div>
+                    </div>
+                    <div class="hint" id="modelHintOpenAI">Select a model or enter a custom OpenAI model name.</div>
+                    <div class="hint" id="modelHintGemini" style="display:none;">Select a model or enter a custom Gemini
+                        model
+                        name.</div>
+                </div>
+                <div class="form-group" id="essenca-api-group" style="display:none;">
+                    <label for="essencaApiKey">Essenca API Key</label>
+                    <div class="api-key-wrapper">
+                        <input type="password" id="essencaApiKey" placeholder="ESN_...">
+                        <i class="fas fa-eye toggle-api-key"></i>
+                        <i class="fas fa-flask test-api-key" id="test-essenca-api" title="Test API Key"></i>
+                    </div>
+                    <div class="hint">Your Essenca API key will be stored securely in your browser. You can get your API key from the 
+                        <a href="https://essenca.vercel.app" target="_blank">Essenca Dashboard</a> under Users → View API Key.
+                    </div>
+                    <div id="essenca-balance-info" style="display:none; margin-top: 10px;">
+                        <div class="account-detail">
+                            <i class="fas fa-coins"></i>
+                            <span>Remaining Tokens: <strong id="token-balance">Loading...</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="personalization">
+                <div class="form-group">
+                    <label for="userProfileInfo">AI Personalization (Optional)</label>
+                    <textarea id="userProfileInfo" class="modern-textarea"
+                        placeholder="Tell the AI about yourself (e.g., your job title, industry, expertise, and the perspective you usually write from). This will be used to generate more personalized comments."></textarea>
+                    <div class="hint">You can also upload a .txt or .md file with this information.</div>
+
+                    <div class="modern-file-input">
+                        <input type="file" id="userProfileFile" accept=".txt,.md" hidden>
+                        <button type="button" class="file-upload-btn" id="fileUploadBtn">
+                            <i class="fas fa-upload"></i>
+                            Choose File
+                        </button>
+                        <span class="file-name" id="fileName">No file chosen</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="advanced">
+                <div class="form-group">
+                    <label for="systemPrompt">Additional Instructions (Optional)</label>
+                    <textarea id="systemPrompt"
+                        placeholder="e.g., Always respond in a friendly and encouraging tone. When commenting, focus on asking open-ended questions."></textarea>
+                    <div class="hint">Provide additional instructions for the AI. For example, you can specify a tone,
+                        format, or provide examples of how you want the AI to comment. Leave empty to use the defaults.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button id="save">Save Settings</button>
+            <button id="reset" class="secondary">Reset to Defaults</button>
+        </div>
+
+        <div id="status"></div>
+
+        <div class="footer">
+            Essenca v1.1.0 &bull; Powered by OpenAI & Gemini
+        </div>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+
+</html>

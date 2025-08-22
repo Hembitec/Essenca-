@@ -1,0 +1,1015 @@
+:root {
+    --primary-color: #DA7756;
+    --primary-hover: #BD5D3A;
+    --secondary-color: #DDD9C5;
+    --text-color: #3D3929;
+    --text-light: #6D6A58;
+    --border-color: #CBC4A4;
+    --shadow-light: 0 2px 10px rgba(184, 175, 132, 0.08);
+    --shadow-medium: 0 8px 32px rgba(184, 175, 132, 0.10);
+    --border-radius: 18px;
+    --transition-speed: 0.18s;
+}
+
+body {
+    min-height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: var(--text-color);
+    background: #F0EEE5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background: #F0EEE5;
+    max-width: 500px;
+    width: 100%;
+    margin: 32px auto;
+    padding: 36px 32px 24px 32px;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(203, 196, 164, 0.3);
+    box-shadow:
+        var(--shadow-medium),
+        inset 0 1px 3px rgba(255, 255, 255, 0.4),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.logo {
+    margin-right: 12px;
+    font-size: 24px;
+    color: var(--primary-color);
+}
+
+h1 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-color);
+}
+
+input[type="text"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 0;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    background: #F0EEE5;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(248, 141, 19, 0.10);
+}
+
+textarea {
+    height: 90px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.hint {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 3px;
+    line-height: 1.3;
+    font-weight: 400;
+}
+
+.model-options {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.model-option {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 8px 10px 8px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color var(--transition-speed) ease, background var(--transition-speed) ease;
+    font-size: 14px;
+    background: #F0EEE5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.model-option.selected {
+    border-color: var(--primary-color);
+    background: #DDD9C5;
+    font-weight: 600;
+}
+
+.model-option:hover {
+    border-color: var(--primary-color);
+    background: #DDD9C5;
+}
+
+.model-name {
+    font-weight: 600;
+    margin-bottom: 2px;
+    font-size: 14px;
+}
+
+.model-description {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+.buttons {
+    display: flex;
+    gap: 14px;
+    margin-top: 20px;
+    padding: 0 2px;
+}
+
+/* Modern Button System */
+button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex: 1;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 40px;
+
+    /* Primary button styling */
+    background: linear-gradient(135deg, var(--primary-color) 0%, #C85A3A 100%);
+    color: white;
+    box-shadow:
+        0 4px 12px rgba(218, 119, 86, 0.25),
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+button:hover::before {
+    opacity: 1;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 25px rgba(218, 119, 86, 0.35),
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+button:active {
+    transform: translateY(-1px);
+    transition: all 0.1s ease;
+}
+
+/* Secondary button styling */
+button.secondary {
+    background: rgba(240, 238, 229, 0.8);
+    color: var(--text-color);
+    border: 2px solid rgba(203, 196, 164, 0.6);
+    box-shadow:
+        0 2px 8px rgba(203, 196, 164, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+button.secondary::before {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #C85A3A 100%);
+    opacity: 0;
+}
+
+button.secondary:hover {
+    background: rgba(221, 217, 197, 0.9);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 20px rgba(218, 119, 86, 0.2),
+        0 3px 8px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+button.secondary:hover::before {
+    opacity: 0.05;
+}
+
+/* Disabled state */
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+button:disabled::before {
+    opacity: 0 !important;
+}
+
+/* Loading state */
+button .button-text {
+    transition: opacity 0.2s ease;
+}
+
+button .loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+}
+
+button.loading .button-text {
+    opacity: 0;
+}
+
+button.loading .loading-spinner {
+    opacity: 1;
+}
+
+button.loading {
+    cursor: wait;
+}
+
+/* Icon styling in buttons */
+button i {
+    font-size: 16px;
+    transition: transform 0.2s ease;
+}
+
+button:hover i {
+    transform: scale(1.1);
+}
+
+/* Modern focus states for accessibility */
+button:focus {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(218, 119, 86, 0.3),
+        0 4px 12px rgba(218, 119, 86, 0.25),
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+button.secondary:focus {
+    box-shadow:
+        0 0 0 3px rgba(218, 119, 86, 0.2),
+        0 2px 8px rgba(203, 196, 164, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.logout-button:focus {
+    box-shadow:
+        0 0 0 3px rgba(220, 38, 38, 0.3),
+        0 6px 20px rgba(220, 38, 38, 0.25),
+        0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    button {
+        transition: none;
+    }
+
+    button::before,
+    button::after {
+        transition: none;
+        animation: none;
+    }
+
+    button:hover {
+        transform: none;
+    }
+
+    @keyframes buttonPress {
+
+        0%,
+        100% {
+            transform: none;
+        }
+    }
+}
+
+#status {
+    margin-top: 12px;
+    padding: 8px;
+    border-radius: 6px;
+    display: none;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    animation: modalFadeIn 0.3s ease;
+}
+
+.modal-content {
+    background-color: #F0EEE5;
+    margin: auto;
+    padding: 32px;
+    border: 1px solid rgba(203, 196, 164, 0.3);
+    width: 90%;
+    max-width: 420px;
+    border-radius: var(--border-radius);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.15),
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 3px rgba(255, 255, 255, 0.4);
+    position: relative;
+    animation: modalSlideIn 0.3s ease;
+}
+
+.close-button {
+    color: var(--text-light);
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all var(--transition-speed) ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--text-color);
+    background-color: rgba(203, 196, 164, 0.2);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#auth-modal h2 {
+    margin: 0 0 24px 0;
+    text-align: center;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+#auth-modal input {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 14px;
+    background: #F0EEE5;
+    box-sizing: border-box;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+#auth-modal input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(218, 119, 86, 0.1);
+}
+
+#auth-modal input::placeholder {
+    color: var(--text-light);
+}
+
+/* Password input wrapper with eye icon */
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.password-input-wrapper input {
+    width: 100%;
+    padding-right: 50px;
+    margin-bottom: 0;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 16px;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    z-index: 10;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.password-toggle:hover {
+    color: var(--primary-color);
+    background: rgba(218, 119, 86, 0.1);
+    transform: scale(1.1);
+}
+
+.password-toggle.fa-eye-slash {
+    color: var(--primary-color);
+}
+
+#auth-modal button {
+    width: 100%;
+    padding: 13px 20px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #C85A3A 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+    min-height: 44px;
+    box-shadow:
+        0 3px 10px rgba(218, 119, 86, 0.25),
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+#auth-modal button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+#auth-modal button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 25px rgba(218, 119, 86, 0.35),
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+#auth-modal button:hover:not(:disabled)::before {
+    opacity: 1;
+}
+
+#auth-modal button:active:not(:disabled) {
+    transform: translateY(-1px);
+    transition: all 0.1s ease;
+}
+
+#auth-modal button:disabled {
+    background: linear-gradient(135deg, var(--border-color) 0%, #B8AF84 100%);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0.7;
+}
+
+#auth-modal button:disabled::before {
+    opacity: 0;
+}
+
+#auth-modal button .button-text {
+    transition: opacity var(--transition-speed) ease;
+}
+
+#auth-modal button .loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+}
+
+#auth-modal button.loading .button-text {
+    opacity: 0;
+}
+
+#auth-modal button.loading .loading-spinner {
+    opacity: 1;
+}
+
+#auth-modal p {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+#auth-modal p a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--transition-speed) ease;
+}
+
+#auth-modal p a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+#auth-status {
+    margin-top: 16px;
+    text-align: center;
+    font-weight: 500;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all var(--transition-speed) ease;
+}
+
+#auth-status.success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+#auth-status.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Loading spinner animation */
+.loading-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#auth-status {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Button press animation */
+@keyframes buttonPress {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.98);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+button:active {
+    animation: buttonPress 0.1s ease;
+}
+
+/* Ripple effect for buttons */
+button {
+    position: relative;
+    overflow: hidden;
+}
+
+button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+button:active::after {
+    width: 200px;
+    height: 200px;
+    transition: width 0s, height 0s;
+}
+
+/* Enhanced mobile responsiveness */
+@media (max-width: 600px) {
+    .container {
+        padding: 16px 4vw 12px 4vw;
+        max-width: 98vw;
+    }
+
+    .model-options {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    button {
+        padding: 14px 20px;
+        font-size: 15px;
+        min-height: 44px;
+    }
+
+    #auth-modal button {
+        padding: 15px 20px;
+        font-size: 15px;
+        min-height: 48px;
+    }
+}
+
+#login-btn {
+    /* Inherits from main button styles */
+    width: 100%;
+    flex: none;
+    padding: 11px 18px;
+    min-height: 38px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #C85A3A 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+#login-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    transition: all 0.4s ease;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+}
+
+#login-btn:hover::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Enhanced Logout Button Styling */
+.logout-button {
+    /* Inherits from secondary button styles */
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(185, 28, 28, 0.1) 100%);
+    border: 2px solid rgba(220, 38, 38, 0.3);
+    color: #dc2626;
+    position: relative;
+    overflow: hidden;
+}
+
+.logout-button::before {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+}
+
+.logout-button:hover {
+    background: rgba(220, 38, 38, 0.1);
+    border-color: #dc2626;
+    color: #dc2626;
+    box-shadow:
+        0 6px 20px rgba(220, 38, 38, 0.25),
+        0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logout-button:hover::before {
+    opacity: 0.1;
+}
+
+.logout-button i {
+    transition: all 0.2s ease;
+}
+
+.logout-button:hover i {
+    transform: translateX(-2px) scale(1.1);
+}
+
+/* Logout button specific loading and disabled states */
+.logout-button:disabled {
+    background: rgba(203, 196, 164, 0.3);
+    border-color: rgba(203, 196, 164, 0.5);
+    color: var(--text-light);
+}
+
+.logout-button.loading {
+    border-color: rgba(220, 38, 38, 0.5);
+}
+
+
+
+/* Account Info Styling */
+.account-info {
+    background: rgba(221, 217, 197, 0.3);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(203, 196, 164, 0.4);
+}
+
+.account-detail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.account-detail:last-child {
+    margin-bottom: 0;
+}
+
+.account-detail i {
+    color: var(--primary-color);
+    width: 16px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.account-detail strong {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* Tab Styles */
+.tabs {
+    width: 100%;
+}
+
+.tab-header {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-link {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all var(--transition-speed) ease;
+}
+
+.tab-link.active {
+    border-bottom-color: var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.tab-link:hover {
+    color: var(--primary-color);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.api-key-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.api-key-wrapper input {
+    padding-right: 80px;
+}
+
+.test-api-key {
+    position: absolute;
+    right: 40px;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: color var(--transition-speed);
+    font-size: 14px;
+    padding: 4px;
+}
+
+.test-api-key:hover {
+    color: var(--primary-color);
+}
+
+.test-api-key.testing {
+    color: var(--primary-color);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.toggle-api-key {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+/* Modern textarea styling */
+.modern-textarea {
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.5;
+    background: #F0EEE5;
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all var(--transition-speed) ease;
+}
+
+.modern-textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(218, 119, 86, 0.1);
+    outline: none;
+}
+
+/* Modern file input styling */
+.modern-file-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.file-upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: rgba(240, 238, 229, 0.8);
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    min-height: auto;
+    flex: none;
+}
+
+.file-upload-btn:hover {
+    background: var(--secondary-color);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: none;
+    box-shadow: 0 2px 8px rgba(218, 119, 86, 0.15);
+}
+
+.file-upload-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(218, 119, 86, 0.2);
+}
+
+.file-upload-btn::before,
+.file-upload-btn::after {
+    display: none;
+}
+
+.file-upload-btn i {
+    font-size: 13px;
+}
+
+.file-name {
+    font-size: 14px;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+.file-name.has-file {
+    color: var(--text-color);
+    font-style: normal;
+    font-weight: 500;
+}
