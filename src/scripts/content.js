@@ -47,7 +47,7 @@ function isFontAwesomeLoaded() {
 }
 
 // Custom PNG logo content
-const customLogoImg = `<img src="${chrome.runtime.getURL('Essenca_logo.png')}" alt="Essenca Logo" style="width: 24px; height: 24px; object-fit: contain;">`;
+const customLogoImg = `<img src="${chrome.runtime.getURL('assets/Essenca_logo_light.png')}" alt="Essenca Logo" style="width: 24px; height: 24px; object-fit: contain;">`;
 
 // Fallback icons as simple text/symbols
 const fallbackIcons = {

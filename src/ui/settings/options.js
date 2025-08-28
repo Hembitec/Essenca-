@@ -162,8 +162,14 @@ function showStatus(message, type) {
     }, 5000);
 }
 
-// Event Listeners
+// Set logo source using chrome.runtime.getURL
 document.addEventListener('DOMContentLoaded', () => {
+    // Set the logo image source
+    const logoImg = document.getElementById('logoImg');
+    if (logoImg) {
+        logoImg.src = chrome.runtime.getURL('assets/Essenca_logo.png');
+    }
+    
     loadSettings();
 
     const tabLinks = document.querySelectorAll('.tab-link');

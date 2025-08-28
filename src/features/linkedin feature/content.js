@@ -1,7 +1,7 @@
 // LinkedIn Comment Assistant - Content Script
 
 // Enable debug mode to see detailed logs in the console
-const DEBUG = true;
+const DEBUG = false;
 
 // Helper function for logging
 function debugLog(...args) {
@@ -14,6 +14,10 @@ class CommentAssistant {
     constructor() {
         this.observer = null;
         this.addedButtons = new Set();
+        this.retryAttempts = new Map();
+        this.maxRetries = 3;
+        this.processedPosts = new Set(); // Track processed posts
+        this.isScanning = false; // Prevent concurrent scans
         debugLog("Initializing Comment Assistant");
         this.init();
     }
@@ -28,35 +32,63 @@ class CommentAssistant {
     }
 
     startObserving() {
-        // Initial scan
-        this.addCommentIcons();
+        // Initial scan with delay to ensure DOM stability
+        setTimeout(() => this.addCommentIcons(), 500);
 
-        // Set up mutation observer to catch dynamically loaded content
+        // Simplified single detection strategy
+        this.setupMutationObserver();
+        this.setupPeriodicScan();
+    }
+
+    setupMutationObserver() {
         this.observer = new MutationObserver((mutations) => {
             let shouldScan = false;
+            
             mutations.forEach((mutation) => {
                 if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                    shouldScan = true;
+                    mutation.addedNodes.forEach(node => {
+                        if (node.nodeType === 1) {
+                            // Check for comment box specifically
+                            if (node.matches && (
+                                node.matches('.comments-comment-box__form') ||
+                                node.querySelector && node.querySelector('.comments-comment-box__form')
+                            )) {
+                                shouldScan = true;
+                            }
+                        }
+                    });
                 }
             });
 
             if (shouldScan) {
+                // Immediate scan without debounce for better responsiveness
                 setTimeout(() => this.addCommentIcons(), 100);
             }
         });
 
         this.observer.observe(document.body, {
             childList: true,
-            subtree: true
+            subtree: true,
+            attributes: false,
+            attributeOldValue: false
         });
     }
 
-    addCommentIcons() {
-        // LinkedIn comment boxes
-        const linkedinCommentBoxes = document.querySelectorAll('.comments-comment-box__form');
 
-        linkedinCommentBoxes.forEach((commentBox) => {
-            this.addCommentIconToLinkedIn(commentBox);
+    setupPeriodicScan() {
+        // Simple periodic scan every 2 seconds
+        setInterval(() => {
+            this.addCommentIcons();
+        }, 2000);
+    }
+
+
+    addCommentIcons() {
+        // Simple, direct approach - find all comment boxes and add buttons
+        const commentBoxes = document.querySelectorAll('.comments-comment-box__form');
+        
+        commentBoxes.forEach(box => {
+            this.addCommentIconToLinkedIn(box);
         });
     }
 
@@ -65,17 +97,18 @@ class CommentAssistant {
         const existingButton = commentBox.querySelector('.comment-assistant-icon');
         if (existingButton) return;
 
-        // Find the container with other buttons (emoji, photo)
-        const buttonContainer = commentBox.querySelector('.display-flex.justify-space-between .display-flex:first-child');
+        // Try multiple selector strategies for button container
+        let buttonContainer = commentBox.querySelector('.display-flex.justify-space-between .display-flex:first-child') ||
+                             commentBox.querySelector('.comments-comment-box__form-footer .display-flex') ||
+                             commentBox.querySelector('.comments-comment-box-comment__form-footer .display-flex') ||
+                             commentBox.querySelector('[data-test-id="comment-box-footer"] .display-flex');
 
         if (buttonContainer) {
             const commentButton = this.createCommentButton();
-
             // Insert as the first icon in the button container
             buttonContainer.insertAdjacentElement('afterbegin', commentButton);
         }
     }
-
 
     createCommentButton() {
         const button = document.createElement('button');
@@ -87,7 +120,7 @@ class CommentAssistant {
         // Create comment icon using the custom Essenca PNG logo
         button.innerHTML = `
       <div class="comment-assistant-icon__content">
-        <img class="comment-assistant-icon__icon" src="${chrome.runtime.getURL('Essenca_logo.png')}" alt="Essenca Logo" width="20" height="20" style="object-fit: contain;">
+        <img class="comment-assistant-icon__icon" src="${chrome.runtime.getURL('assets/Essenca_logo.png')}" alt="Essenca Logo" width="20" height="20" style="object-fit: contain;">
         <svg class="comment-assistant-icon__spinner" width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path d="M12 4V2A10 10 0 0 0 2 12H4A8 8 0 0 1 12 4Z" fill="#DA7756"/>
         </svg>
@@ -105,19 +138,14 @@ class CommentAssistant {
     }
 
     handleCommentIconClick(button) {
-        debugLog(`Icon clicked on platform: linkedin`);
-
         const postContainer = button.closest('.feed-shared-update-v2');
         const postContentElement = postContainer?.querySelector('.update-components-text.update-components-update-v2__commentary, .update-components-text');
         const postContent = postContentElement?.textContent.trim();
 
         if (!postContent) {
-            debugLog("LinkedIn Post content not found.");
             alert("Could not find the post content to analyze.");
             return;
         }
-
-        debugLog("LinkedIn Post Content:", postContent);
 
         // Show loading state
         button.classList.add('comment-assistant-icon--loading');
@@ -148,7 +176,7 @@ class CommentAssistant {
     }
 
     insertAIComment(button, comment) {
-        debugLog(`Inserting AI comment for platform: linkedin`);
+        console.log("[Comment Assistant] Inserting AI comment for platform: linkedin");
 
         const commentBox = button.closest('.comments-comment-box__form');
         const textEditor = commentBox?.querySelector('.ql-editor');
@@ -177,9 +205,7 @@ class CommentAssistant {
                 textEditor.dispatchEvent(new Event(eventType, { bubbles: true, cancelable: true }));
             });
 
-            debugLog("Inserted AI comment for LinkedIn using robust method.");
-        } else {
-            debugLog("LinkedIn text editor (.ql-editor) not found.");
+            console.log("[Comment Assistant] Inserted AI comment for LinkedIn using robust method.");
         }
     }
 
