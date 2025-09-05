@@ -70,6 +70,12 @@ async function makeEssencaRequest(url, body) {
 // Migration helper - clean up old authentication data
 async function cleanupOldAuthData() {
     try {
+        // Check if chrome.storage is available (service worker context)
+        if (!chrome || !chrome.storage || !chrome.storage.local) {
+            console.log('⚠️ Chrome storage not available, skipping auth cleanup');
+            return;
+        }
+
         const { jwtToken, essenca_session } = await chrome.storage.local.get(['jwtToken', 'essenca_session']);
         
         if (jwtToken || essenca_session) {
@@ -84,8 +90,15 @@ async function cleanupOldAuthData() {
 
 // Initialize background script
 console.log('🚀 Background script starting...');
-// Migration helper - clean up old auth data
-cleanupOldAuthData();
+
+// Only run cleanup if we're in a proper service worker context
+if (typeof chrome !== 'undefined' && chrome.storage) {
+    // Migration helper - clean up old auth data
+    cleanupOldAuthData();
+} else {
+    console.log('⚠️ Service worker context not ready, skipping auth cleanup');
+}
+
 console.log('✅ Background script initialized');
 
 // System prompts for different actions

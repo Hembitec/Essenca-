@@ -2,32 +2,8 @@
 function addFontAwesome() {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
-
-    let fontAwesomeLoaded = false;
-
-    link.onload = () => {
-        fontAwesomeLoaded = true;
-        // Font Awesome has loaded, now we can initialize the extension
-        init();
-    };
-
-    link.onerror = () => {
-        console.warn('FontAwesome failed to load from CDN, using fallback icons');
-        fontAwesomeLoaded = false;
-        // Initialize anyway with fallback icons
-        init();
-    };
-
+    link.href = chrome.runtime.getURL('assets/css/all.min.css');
     document.head.appendChild(link);
-
-    // Fallback timeout in case onload/onerror don't fire
-    setTimeout(() => {
-        if (!fontAwesomeLoaded) {
-            console.warn('FontAwesome loading timeout, using fallback icons');
-            init();
-        }
-    }, 3000);
 }
 
 // Check if FontAwesome is actually working
@@ -245,10 +221,14 @@ function handleButtonClick(button, popup) {
 function handleHotButtons(popup) {
     const chatContainer = popup.querySelector('.chat-container');
     const hotButtons = popup.querySelectorAll('.hot-button');
+    const hotButtonsContainer = popup.querySelector('.hot-buttons');
 
     hotButtons.forEach(button => {
         button.addEventListener('click', () => {
             const action = button.dataset.action;
+
+            // Hide hot buttons when clicked
+            hotButtonsContainer.style.display = 'none';
 
             // Get article content if not already fetched
             if (!articleContent) {
@@ -292,10 +272,14 @@ function handleChatInput(popup) {
     const chatContainer = popup.querySelector('.chat-container');
     const chatInput = popup.querySelector('.chat-input');
     const sendButton = popup.querySelector('.send-button');
+    const hotButtonsContainer = popup.querySelector('.hot-buttons');
 
     function sendMessage() {
         const message = chatInput.value.trim();
         if (!message) return;
+
+        // Hide hot buttons when user starts chatting
+        hotButtonsContainer.style.display = 'none';
 
         // Add user message to chat
         addMessage('user', message, chatContainer);
@@ -685,3 +669,8 @@ function init() {
 
 // Run initialization
 addFontAwesome();
+
+// Initialize immediately after FontAwesome is added
+setTimeout(() => {
+    init();
+}, 100);
